@@ -61,7 +61,7 @@ def main(number: str):
 
     # Scraping
     result = get_html(
-        "http://www.javlibrary.com/tw/vl_searchbyid.php?keyword={}".format(number),
+        "http://www.javlibrary.com/cn/vl_searchbyid.php?keyword={}".format(number),
         #cookies=cookies,
         #ua=user_agent,
         return_type="object"
@@ -77,7 +77,7 @@ def main(number: str):
         for i in range(1, get_link_count(lx)+1):
             id, href, title = get_link(lx, i)
             if id.upper() == number:
-                links.append('http://www.javlibrary.com/tw'+href)
+                links.append('http://www.javlibrary.com/cn'+href)
                 titles.append(title)
 
         link = ''

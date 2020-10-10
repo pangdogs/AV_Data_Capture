@@ -10,7 +10,7 @@ from ADC_function import *
 # =========website========
 from WebCrawler import avsox
 from WebCrawler import fanza
-from WebCrawler import fc2fans_club
+from WebCrawler import fc2
 from WebCrawler import jav321
 from WebCrawler import javbus
 from WebCrawler import javdb
@@ -44,12 +44,12 @@ def CreatFailedFolder(failed_folder):
 
 def get_data_from_json(file_number, filepath, conf: config.Config, cn_sub):  # 从JSON返回元数据
     """
-    iterate through all services and fetch the data
+    iterate through all services and fetch the data 
     """
 
     func_mapping = {
         "avsox": avsox.main,
-        "fc2": fc2fans_club.main,
+        "fc2": fc2.main,
         "fanza": fanza.main,
         "javdb": javdb.main,
         "javbus": javbus.main,
@@ -218,8 +218,10 @@ def get_data_from_json(file_number, filepath, conf: config.Config, cn_sub):  # �
         if 'actor' in conf.location_rule() and len(actor) > 100:
             print(conf.location_rule())
             location_rule = eval(conf.location_rule().replace("actor","'多人作品'"))
-        if 'title' in conf.location_rule() and len(title) > 100:
-            location_rule = eval(conf.location_rule().replace("title",'number'))
+        maxlen = conf.max_title_len()
+        if 'title' in conf.location_rule() and len(title) > maxlen:
+            shorttitle = title[0:maxlen]
+            location_rule = location_rule.replace(title, shorttitle)
 
     # 返回处理后的json_data
     json_data['title'] = title

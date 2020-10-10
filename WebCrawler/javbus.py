@@ -111,7 +111,7 @@ def getTag(htmlcode):  # 获取标签
     for i in a:
         if 'onmouseout' in str(i):
             continue
-        tag.append(i.get_text())
+        tag.append(translateTag_to_sc(i.get_text()))
     return tag
 
 def main(number):
