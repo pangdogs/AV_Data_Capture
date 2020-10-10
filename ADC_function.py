@@ -96,9 +96,10 @@ def get_javlib_cookie() -> [dict, str]:
     for i in range(retry_count):
         try:
             raw_cookie, user_agent = cloudscraper.get_cookie_string(
-                "http://www.javlibrary.com/",
+                "http://www.b47w.com/cn",
                 proxies=proxies
             )
+            break
         except requests.exceptions.ProxyError:
             print("[-] ProxyError, retry {}/{}".format(i+1, retry_count))
         except cloudscraper.exceptions.CloudflareIUAMError:
@@ -121,6 +122,7 @@ def get_javdb_cookie() -> [dict, str]:
                 "http://www.javdb.com/",
                 proxies=proxies
             )
+            break
         except requests.exceptions.ProxyError:
             print("[-] ProxyError, retry {}/{}".format(i+1, retry_count))
         except cloudscraper.exceptions.CloudflareIUAMError:

@@ -46,38 +46,38 @@ def get_link(lx, i):
 
 def main(number: str):
     number = number.upper()
-    #raw_cookies, user_agent = get_javlib_cookie()
-
-    # Blank cookies mean javlib site return error
-    #if not raw_cookies:
+    # raw_cookies, user_agent = get_javlib_cookie()
+    #
+    # #Blank cookies mean javlib site return error
+    # if not raw_cookies:
     #    return json.dumps({}, ensure_ascii=False, sort_keys=True, indent=4, separators=(',', ':'))
-
-    # Manually construct a dictionary
-    #s_cookie = SimpleCookie()
-    #s_cookie.load(raw_cookies)
-    #cookies = {}
-    #for key, morsel in s_cookie.items():
+    #
+    # #Manually construct a dictionary
+    # s_cookie = SimpleCookie()
+    # s_cookie.load(raw_cookies)
+    # cookies = {}
+    # for key, morsel in s_cookie.items():
     #    cookies[key] = morsel.value
 
     # Scraping
     result = get_html(
-        "http://www.javlibrary.com/cn/vl_searchbyid.php?keyword={}".format(number),
-        #cookies=cookies,
-        #ua=user_agent,
+        "http://www.b47w.com/cn/vl_searchbyid.php?keyword={}".format(number),
+        # cookies=cookies,
+        # ua=user_agent,
         return_type="object"
     )
     soup = BeautifulSoup(result.text, "html.parser")
     lx = html.fromstring(str(soup))
 
     multiLabel = get_from_xpath(lx, '//*[@id="rightcolumn"]/div[1]/text()')
-    if multiLabel.find('識別碼搜尋結果') > 0:
+    if multiLabel.find('识别码搜寻结果') > 0:
         links = []
         titles = []
 
         for i in range(1, get_link_count(lx)+1):
             id, href, title = get_link(lx, i)
             if id.upper() == number:
-                links.append('http://www.javlibrary.com/cn'+href)
+                links.append('http://www.b47w.com/cn'+href)
                 titles.append(title)
 
         link = ''
@@ -121,7 +121,7 @@ def main(number: str):
             "cover": get_cover(lx),
             "imagecut": 1,
             "actor_photo": "",
-            "website": result.url,
+            "website": result.url.replace('www.b47w.com', 'www.javlibrary.com'),
             "source": "javlib.py",
             "actor": get_table_el_multi_anchor(soup, "video_cast"),
             "label": get_table_el_single_anchor(soup, "video_label"),
