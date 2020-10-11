@@ -8,7 +8,7 @@ from lxml import html
 from http.cookies import SimpleCookie
 from WebCrawler import fanza
 from lxml import etree
-from ADC_function import get_javlib_cookie, get_html
+from ADC_function import get_javlib_cookie, get_html, translateTag_to_sc
 
 def getCID(lx):
     string = get_from_xpath(lx, '//*[@id="video_jacket_img"]/@src')
@@ -43,6 +43,18 @@ def get_link(lx, i):
     title = get_from_xpath(lx, '/html/body/div[3]/div[2]/div[2]/div/div['+str(i)+']/a/div[2]/text()')
 
     return id, href, title
+
+def getTag(tagsStr):
+    if tagsStr == '':
+        return
+    tags = tagsStr.replace("'", '').replace(" ", '').split(',')
+    total = []
+    for i in tags:
+        try:
+            total.append(translateTag_to_sc(i))
+        except:
+            pass
+    return total
 
 def main(number: str):
     number = number.upper()
@@ -125,7 +137,7 @@ def main(number: str):
             "source": "javlib.py",
             "actor": get_table_el_multi_anchor(soup, "video_cast"),
             "label": get_table_el_single_anchor(soup, "video_label"),
-            "tag": get_table_el_multi_anchor(soup, "video_genres"),
+            "tag": getTag(get_table_el_multi_anchor(soup, "video_genres")),
             "number": get_table_el_td(soup, "video_id"),
             "release": get_table_el_td(soup, "video_date"),
             "runtime": get_from_xpath(lx, '//*[@id="video_length"]/table/tr/td[2]/span/text()'),
@@ -133,6 +145,7 @@ def main(number: str):
         }
     else:
         dic = {}
+
 
     return json.dumps(dic, ensure_ascii=False, sort_keys=True, indent=4, separators=(',', ':'))
 

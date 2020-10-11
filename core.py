@@ -204,6 +204,7 @@ def get_data_from_json(file_number, filepath, conf: config.Config, cn_sub):  # �
     studio = studio.replace('エムズビデオグループ','M’s Video Group')
     studio = studio.replace('ミニマム','Minimum')
     studio = studio.replace('ワープエンタテインメント','WAAP Entertainment')
+    studio = studio.replace('アリーナエンターテインメント', 'Arena Entertainment')
     studio = re.sub('.*/妄想族','妄想族',studio)
     studio = studio.replace('/',' ')
     # ===  替换Studio片假名 END
@@ -225,6 +226,7 @@ def get_data_from_json(file_number, filepath, conf: config.Config, cn_sub):  # �
 
     # 返回处理后的json_data
     json_data['title'] = title
+    json_data['studio'] = studio
     json_data['actor'] = actor
     json_data['release'] = release
     json_data['cover_small'] = cover_small
@@ -373,7 +375,7 @@ def print_files(path, c_word, naming_rule, part, cn_sub, json_data, filepath, fa
                     print("   <name><![CDATA[" + key + "]]></name>", file=code)
                     print("  </actor>", file=code)
             except:
-                aaaa = ''
+                pass
             print("  <maker><![CDATA[" + studio + "]]></maker>", file=code)
             print("  <label><![CDATA[" + label + "]]></label>", file=code)
             if cn_sub == '1':
@@ -383,14 +385,14 @@ def print_files(path, c_word, naming_rule, part, cn_sub, json_data, filepath, fa
             try:
                 for i in tag:
                     print("  <tag><![CDATA[" + i + "]]></tag>", file=code)
-                print("  <tag><![CDATA[" + series + "]]></tag>", file=code)
+                #print("  <tag><![CDATA[" + series + "]]></tag>", file=code)
             except:
-                aaaaa = ''
+                pass
             try:
                 for i in tag:
                     print("  <genre><![CDATA[" + i + "]]></genre>", file=code)
             except:
-                aaaaaaaa = ''
+                pass
             if cn_sub == '1':
                 print("  <genre>中文字幕</genre>", file=code)
             print("  <num>" + number + "</num>", file=code)
