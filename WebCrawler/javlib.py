@@ -88,6 +88,8 @@ def main(number: str):
 
         for i in range(1, get_link_count(lx)+1):
             id, href, title = get_link(lx, i)
+            if title.count('（ブルーレイディスク）') > 0:
+                continue
             if id.upper() == number:
                 links.append('http://www.b47w.com/cn'+href)
                 titles.append(title)
