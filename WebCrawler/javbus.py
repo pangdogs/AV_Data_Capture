@@ -142,14 +142,16 @@ def main(number):
                 movie = {'link':str(links[i]), 'title':str(titles[i]), 'id':str(ids[i])}
                 movieList.append(movie)
 
+        index = 0
+
         if len(movieList) <= 0:
             raise ValueError("no movie")
+        elif len(movieList) >= 2:
+            for i, link in enumerate(movieList):
+                print(str(i+1)+": "+movieList[i]['title'])
+                print(movieList[i]['link'])
 
-        for i, link in enumerate(movieList):
-            print(str(i+1)+": "+movieList[i]['title'])
-            print(movieList[i]['link'])
-
-        index = int(input("input index: "))-1
+            index = int(input("input index: "))-1
 
         if index < 0 or index >= len(movieList):
             raise ValueError("out of range")
