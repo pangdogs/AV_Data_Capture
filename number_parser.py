@@ -29,6 +29,7 @@ def get_number(debug,filepath: str) -> str:
     # 'snis-829'
     # """
     filepath = os.path.basename(filepath)
+    filepath = str(re.sub("(\-[cC][dD][0-9]+)", "", filepath))
 
     if debug == False:
         try:
@@ -36,7 +37,7 @@ def get_number(debug,filepath: str) -> str:
                 filepath = filepath.replace("_", "-")
                 filepath.strip('22-sht.me').strip('-HD').strip('-hd')
                 filename = str(re.sub("\[\d{4}-\d{1,2}-\d{1,2}\] - ", "", filepath))  # 去除文件名中时间
-                if 'FC2' or 'fc2' in filename:
+                if ('FC2' or 'fc2') in filename:
                     filename = filename.replace('PPV', '').replace('ppv', '').replace('--', '-').replace('_', '-')
                 file_number = re.search(r'\w+-\w+', filename, re.A).group()
                 return file_number
@@ -56,7 +57,7 @@ def get_number(debug,filepath: str) -> str:
             filepath = filepath.replace("_", "-")
             filepath.strip('22-sht.me').strip('-HD').strip('-hd')
             filename = str(re.sub("\[\d{4}-\d{1,2}-\d{1,2}\] - ", "", filepath))  # 去除文件名中时间
-            if 'FC2' or 'fc2' in filename:
+            if ('FC2' or 'fc2') in filename:
                 filename = filename.replace('PPV', '').replace('ppv', '').replace('--', '-').replace('_', '-')
             file_number = re.search(r'\w+-\w+', filename, re.A).group()
             return file_number
