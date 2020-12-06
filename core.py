@@ -18,6 +18,7 @@ from WebCrawler import mgstage
 from WebCrawler import xcity
 from WebCrawler import javlib
 from WebCrawler import dlsite
+from WebCrawler import javbus_uncensored
 
 
 def escape_path(path, escape_literals: str):  # Remove escape literals
@@ -58,6 +59,7 @@ def get_data_from_json(file_number, filepath, conf: config.Config, cn_sub):  # �
         "xcity": xcity.main,
         "javlib": javlib.main,
         "dlsite": dlsite.main,
+        "javbus_uncensored": javbus_uncensored.main,
     }
 
     # default fetch order list, from the beginning to the end
@@ -431,7 +433,7 @@ def cutImage(imagecut, path, number, c_word):
 
 
 def paste_file_to_folder(filepath, path, number, c_word, conf: config.Config):  # 文件路径，番号，后缀，要移动至的位置
-    houzhui = str(re.search('[.](AVI|RMVB|WMV|MOV|MP4|MKV|FLV|TS|WEBM|avi|rmvb|wmv|mov|mp4|mkv|flv|ts|webm|iso)$', filepath).group())
+    houzhui = str(re.search('[.](m2ts|AVI|RMVB|WMV|MOV|MP4|MKV|FLV|TS|WEBM|avi|rmvb|wmv|mov|mp4|mkv|flv|ts|webm|iso)$', filepath).group())
 
     try:
         for i in range(10):

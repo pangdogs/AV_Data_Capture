@@ -20,7 +20,7 @@ def getActor(a): #//*[@id="center_column"]/div[2]/div[1]/div/table/tbody/tr[1]/t
     html = etree.fromstring(a, etree.HTMLParser()) #//table/tr[1]/td[1]/text()
     result1=str(html.xpath('//th[contains(text(),"出演：")]/../td/a/text()')).strip(" ['']").strip('\\n    ').strip('\\n').replace('\\n    \', \'', ",").replace('\', \'\\n\', \'', '')
     result2=str(html.xpath('//th[contains(text(),"出演：")]/../td/text()')).strip(" ['']").strip('\\n    ').strip('\\n').replace('\\n    \', \'', ",").replace('\', \'\\n\', \'', '')
-    return str(result1+result2).strip('+').replace("', '",'').replace('"','').replace('/',',').replace(':','：')
+    return str(result1+result2).strip('+').replace("', '",'').replace('"','').replace('/',',').replace(':','：').replace('\\u3000', '').replace('?', '？')
 def getStudio(a):
     html = etree.fromstring(a, etree.HTMLParser()) #//table/tr[1]/td[1]/text()
     result1=str(html.xpath('//th[contains(text(),"メーカー：")]/../td/a/text()')).strip(" ['']").strip('\\n    ').strip('\\n')

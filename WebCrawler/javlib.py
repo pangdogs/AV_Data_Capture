@@ -205,7 +205,10 @@ def get_title(lx: html.HtmlElement, soup: BeautifulSoup) -> str:
 
 
 def get_cover(lx: html.HtmlComment) -> str:
-    return "http:{}".format(get_from_xpath(lx, '//*[@id="video_jacket_img"]/@src'))
+    url = get_from_xpath(lx, '//*[@id="video_jacket_img"]/@src')
+    if url == '../img/noimagepl.gif':
+        return "http://www.javlibrary.com/img/noimagepl.gif"
+    return "http:{}".format(url)
 
 
 if __name__ == "__main__":
